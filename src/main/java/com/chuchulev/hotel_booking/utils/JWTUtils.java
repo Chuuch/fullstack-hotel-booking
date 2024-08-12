@@ -2,6 +2,7 @@ package com.chuchulev.hotel_booking.utils;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -18,8 +19,7 @@ public class JWTUtils {
     private static final long EXPIRATION_TIME = 1000 * 600 * 24 * 7;
     private final SecretKey Key;
 
-    public JWTUtils() {
-        String secreteString = "8412815931247R5839158FF35811834692908J83591Q819U3519175298B1395YC35819U";
+    public JWTUtils(@Value("${app.secret.string}") String secreteString) {
         byte[] keyBytes = Base64.getDecoder().decode(secreteString.getBytes(StandardCharsets.UTF_8));
         this.Key = new SecretKeySpec(keyBytes, "HmacSHA256");
     }
